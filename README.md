@@ -1,6 +1,6 @@
 # expense-tracker
 
-Expense-tracker is a simply app designed to help you easily track and manage your expenses :)
+Expense-tracker is a simply app designed to help you easily track and manage your expenses 😃
 
 You can:
 
