@@ -5,5 +5,5 @@ Expense-tracker is a simply app designed to help you easily track and manage you
 You can:
 
 ⭐ Organize your expenses into categories and subcategories  
-⭐Visualize your daily, weekly, or monthly spending  
+⭐ Visualize your daily, weekly, or monthly spending  
 ⭐ Track your expenses throughout the year  
