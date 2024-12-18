@@ -3,16 +3,16 @@ from expense import Expense
 
 def main():
     print("Running Expense Tracker!")
-    expenses_file_path = "expenses.csv"
+    expense_file_path = "expenses.csv"
 
     # get user input for expense
     expense = get_user_expense()
 
     # write their expense to a file
-    save_expense_to_file(expense, expenses_file_path)
+    save_expense_to_file(expense, expense_file_path)
 
     # read file and summarize expenses
-    summarize_expenses()
+    summarize_expenses(expense_file_path)
 
 
 def get_user_expense():
@@ -52,14 +52,37 @@ def get_user_expense():
             print("Invalid category. Please try again!")
 
 
-def save_expense_to_file(expense: Expense, expenses_file_path):
-    print(f"Your expense: {expense} is here: {expenses_file_path}")
-    with open(expenses_file_path, "a") as f:
+def save_expense_to_file(expense: Expense, expense_file_path):
+    print(f"Saving User Expense: {expense} to: {expense_file_path}")
+    with open(expense_file_path, "a") as f:
         f.write(f"{expense.date},{expense.name},{expense.amount},{expense.category}\n")
 
 
-def summarize_expenses():
-    print("Summarizing User Expenses")
+def summarize_expenses(expense_file_path):
+    expenses: list[Expense] = []
+    with open(expense_file_path, "r") as f:
+        lines = f.readlines()
+        for line in lines:
+            expense_date, expense_name, expense_amount, expense_category = line.strip().split(",")
+            line_expense = Expense(
+                date = expense_date,
+                name = expense_name,
+                amount = float(expense_amount),
+                category = expense_category
+                )
+            expenses.append(line_expense)
+
+    amount_by_category = {}
+    for expense in expenses:
+        key = expense.category
+        if key in amount_by_category:
+            amount_by_category[key] += expense.amount
+        else:
+            amount_by_category[key] = expense.amount
+
+    print("Expenses by category")
+    for key, amount in amount_by_category.items():
+        print(f"  {key}: ${amount:.2f}")
 
 
 if __name__ == "__main__":
